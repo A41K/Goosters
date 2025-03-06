@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    position: relative;
+    width: 360px;
+    background-color: #fff;
+    border: 8px solid #1b8e1b;
+    border-radius: 5px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.game-header h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.resources {
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.monster-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.monster {
+    text-align: center;
+    width: 45%;
+}
+
+.monster-name {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.monster-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #333;
+    image-rendering: pixelated;
+}
+
+.player-monster {
+    background-color: #341933;
+}
+
+.enemy-monster {
+    background-color: #000;
+}
+
+.level {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.hp-bar {
+    height: 20px;
+    width: 100%;
+    background-color: #1b8e1b;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.hp-text {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.stats-box {
+    border: 2px solid #000;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+}
+
+.stats-box p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.action-buttons {
+    margin-top: 15px;
+}
+
+.fight-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 24px;
+    background-color: #1b8e1b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.level-btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 20px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.retreat-btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 20px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bottom-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.inventory-screen, .shop-screen, .levelup-screen, .loot-screen, .game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    display: none;
+    overflow-y: auto;
+}
+
+.inventory-screen h2, .shop-screen h2, .levelup-screen h2, .loot-screen h2, .game-over-screen h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.inventory-items, .shop-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #f0f0f0;
+}
+
+.item-img {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #ddd;
+}
+
+.close-btn, .levelup-btn, .loot-take-btn, .restart-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #1b8e1b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.stat-option {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: left;
+    cursor: pointer;
+}
+
+.stat-option:hover {
+    background-color: #e0e0e0;
+}
+
+.battle-log {
+    max-height: 100px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.log-entry {
+    margin: 2px 0;
+}
+
+.pixel-art {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.tomato-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.inventory-btn, .shop-btn {
+    width: 48%;
+    padding: 8px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.menu-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.enemy-preview {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+    color: #666;
+}

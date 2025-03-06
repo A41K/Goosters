@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goosters</title>
+    <link rel="stylesheet" href="Styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>explore</h1>
+        </div>
+        
+        <div class="resources">
+            <span id="goo">goo: 0.0k</span>, <span id="gold">gold: 0B</span>
+        </div>
+        
+        <div class="monster-container">
+            <div class="monster">
+                <div class="monster-name" id="player-name">gooster</div>
+                <canvas id="player-monster" class="monster-image player-monster" width="16" height="16"></canvas>
+                <div class="level" id="player-level">lv.1</div>
+                <div class="hp-bar" id="player-hp-bar"></div>
+                <div class="hp-text" id="player-hp-text">hp:100/100</div>
+                <div class="stats-box">
+                    <p>health:<span id="player-health">100</span></p>
+                    <p>attack:<span id="player-attack">5</span></p>
+                    <p>speed:<span id="player-speed">10</span></p>
+                    <p>dodge:<span id="player-dodge">5</span></p>
+                </div>
+            </div>
+            
+            <div class="monster">
+                <div class="monster-name" id="enemy-name">slime</div>
+                <canvas id="enemy-monster" class="monster-image enemy-monster" width="16" height="16"></canvas>
+                <div class="level" id="enemy-level">lv.1</div>
+                <div class="hp-bar" id="enemy-hp-bar"></div>
+                <div class="hp-text" id="enemy-hp-text">hp:50/50</div>
+                <div class="stats-box">
+                    <p>health:<span id="enemy-health">50</span></p>
+                    <p>attack:<span id="enemy-attack">3</span></p>
+                    <p>speed:<span id="enemy-speed">8</span></p>
+                    <p>dodge:<span id="enemy-dodge">3</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="battle-log" id="battle-log">
+            <div class="log-entry">Battle log will appear here...</div>
+        </div>
+        
+        <div class="menu-buttons">
+            <button class="inventory-btn" id="inventory-btn">Inventory</button>
+            <button class="shop-btn" id="shop-btn">Shop</button>
+        </div>
+        
+        <button class="tomato-btn" id="tomato-btn">Use Tomato (0)</button>
+        
+        <div class="action-buttons">
+            <button class="fight-btn" id="fight-btn">fight!</button>
+            
+            <div class="bottom-buttons">
+                <button class="level-btn" id="level-btn">level</button>
+                <button class="retreat-btn" id="retreat-btn">retreat</button>
+            </div>
+            
+            <div class="bottom-stats">
+                <div id="exp-text">exp:0/100</div>
+                <div id="tomatoes-text">tomatoes:0</div>
+            </div>
+            <div class="bottom-stats">
+                <div id="heals-text">heals:0</div>
+                <div id="next-enemy" class="enemy-preview">Next: slime lv.2</div>
+            </div>
+        </div>
+        
+        <!-- Inventory Screen -->
+        <div class="inventory-screen" id="inventory-screen">
+            <h2>Inventory</h2>
+            <div class="inventory-items" id="inventory-items">
+                <!-- Items will be added dynamically -->
+            </div>
+            <button class="close-btn" id="close-inventory-btn">Close</button>
+        </div>
+        
+        <!-- Shop Screen -->
+        <div class="shop-screen" id="shop-screen">
+            <h2>Shop</h2>
+            <div class="shop-items" id="shop-items">
+                <!-- Items will be added dynamically -->
+            </div>
+            <button class="close-btn" id="close-shop-btn">Close</button>
+        </div>
+        
+        <!-- Level Up Screen -->
+        <div class="levelup-screen" id="levelup-screen">
+            <h2>Level Up!</h2>
+            <p>Choose a stat to improve:</p>
+            <button class="stat-option" id="health-option">Health +10</button>
+            <button class="stat-option" id="attack-option">Attack +1</button>
+            <button class="stat-option" id="speed-option">Speed +1</button>
+            <button class="stat-option" id="dodge-option">Dodge +1</button>
+        </div>
+        
+        <!-- Loot Screen -->
+        <div class="loot-screen" id="loot-screen">
+            <h2>You found loot!</h2>
+            <div id="loot-description"></div>
+            <button class="loot-take-btn" id="loot-take-btn">Take Loot</button>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div class="game-over-screen" id="game-over-screen">
+            <h2>Game Over</h2>
+            <p id="game-over-stats"></p>
+            <button class="restart-btn" id="restart-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="Javascript.js"></script>
+    <script src="Codes.js"></script>
+
+</body>
+</html>
