@@ -37,6 +37,22 @@ let game = {
     defeatedEnemies: 0
 };
 
+
+// Items
+const itemTypes = [
+    { name: "Health Potion", description: "Restores 50 HP", price: 50, effect: "heal", value: 50, color: "#FF0000" },
+    { name: "Strength Charm", description: "+2 Attack", price: 100, effect: "attack", value: 2, color: "#FFA500" },
+    { name: "Speed Boots", description: "+2 Speed", price: 100, effect: "speed", value: 2, color: "#00FFFF" },
+    { name: "Cloak of Evasion", description: "+2 Dodge", price: 100, effect: "dodge", value: 2, color: "#9370DB" },
+    { name: "Heart Container", description: "+20 Max Health", price: 200, effect: "maxHealth", value: 20, color: "#FF69B4" },
+    { name: "Golden Tomato", description: "+5 Tomatoes", price: 100, effect: "tomatoes", value: 5, color: "#FFD700" },
+    { name: "Agility Elixir", description: "+3 Speed & +1 Dodge", price: 150, effect: "agility", value: 3, color: "#48D1CC" },
+    { name: "Warrior's Tonic", description: "+2 Attack & +10 Health", price: 175, effect: "warrior", value: 2, color: "#CD5C5C" },
+    { name: "Magic Beans", description: "Random stat boost", price: 120, effect: "random", value: 0, color: "#9ACD32" },
+    { name: "Gooey Shield", description: "+3 Dodge & reduce damage by 10%", price: 200, effect: "shield", value: 3, color: "#4169E1" },
+    { name: "Energy Drink", description: "Next battle: +50% Speed", price: 80, effect: "energyBoost", value: 50, color: "#FF8C00" },
+];
+
 // Enemy types
 const enemyTypes = [
     { name: "slime", color: "#00FF00", baseHealth: 50, baseAttack: 3, baseSpeed: 8, baseDodge: 3 },
@@ -48,17 +64,12 @@ const enemyTypes = [
     { name: "dragon", color: "#FF4500", baseHealth: 150, baseAttack: 15, baseSpeed: 6, baseDodge: 5 },
     { name: "demon", color: "#8B0000", baseHealth: 130, baseAttack: 12, baseSpeed: 9, baseDodge: 7 },
     { name: "golem", color: "#A0522D", baseHealth: 200, baseAttack: 10, baseSpeed: 3, baseDodge: 1 },
-    { name: "vampire", color: "#4B0082", baseHealth: 110, baseAttack: 9, baseSpeed: 11, baseDodge: 8 }
-];
-
-// Items
-const itemTypes = [
-    { name: "Health Potion", description: "Restores 50 HP", price: 50, effect: "heal", value: 50, color: "#FF0000" },
-    { name: "Strength Charm", description: "+2 Attack", price: 100, effect: "attack", value: 2, color: "#FFA500" },
-    { name: "Speed Boots", description: "+2 Speed", price: 100, effect: "speed", value: 2, color: "#00FFFF" },
-    { name: "Cloak of Evasion", description: "+2 Dodge", price: 100, effect: "dodge", value: 2, color: "#9370DB" },
-    { name: "Heart Container", description: "+20 Max Health", price: 200, effect: "maxHealth", value: 20, color: "#FF69B4" },
-    { name: "Golden Tomato", description: "+5 Tomatoes", price: 100, effect: "tomatoes", value: 5, color: "#FFD700" }
+    { name: "vampire", color: "#4B0082", baseHealth: 110, baseAttack: 9, baseSpeed: 11, baseDodge: 8 },
+    { name: "phoenix", color: "#FF6347", baseHealth: 100, baseAttack: 11, baseSpeed: 14, baseDodge: 8 },
+    { name: "behemoth", color: "#8B4513", baseHealth: 220, baseAttack: 13, baseSpeed: 4, baseDodge: 2 },
+    { name: "kraken", color: "#4682B4", baseHealth: 180, baseAttack: 12, baseSpeed: 7, baseDodge: 9 },
+    { name: "lich", color: "#9370DB", baseHealth: 120, baseAttack: 15, baseSpeed: 8, baseDodge: 7 },
+    { name: "hydra", color: "#32CD32", baseHealth: 160, baseAttack: 13, baseSpeed: 9, baseDodge: 6 },
 ];
 
 // Create a new array of powerful items
@@ -68,8 +79,22 @@ const bossItemTypes = [
     { name: "Mythical Speed Boots", description: "+5 Speed", price: 600, effect: "speed", value: 5, color: "#00FFFF" },
     { name: "Epic Cloak of Evasion", description: "+5 Dodge", price: 600, effect: "dodge", value: 5, color: "#9370DB" },
     { name: "Golden Heart Container", description: "+50 Max Health", price: 800, effect: "maxHealth", value: 50, color: "#FF1493" },
-    { name: "Legendary Tomato Basket", description: "+20 Tomatoes", price: 500, effect: "tomatoes", value: 20, color: "#FFD700" }
+    { name: "Legendary Tomato Basket", description: "+20 Tomatoes", price: 500, effect: "tomatoes", value: 20, color: "#FFD700" },
+    { name: "Phoenix Feather", description: "Revive once with 50% HP", price: 1000, effect: "revive", value: 50, color: "#FF4500" },
+    { name: "Crystal of Balance", description: "+3 to ALL stats", price: 900, effect: "balance", value: 3, color: "#7B68EE" },
+    { name: "Dragon Scale Armor", description: "+80 Max HP, +2 Dodge", price: 850, effect: "armor", value: 80, color: "#2F4F4F" },
+    { name: "Ancient Rune Stone", description: "Doubles gold from next 5 battles", price: 700, effect: "goldBoost", value: 5, color: "#DAA520" },
+    { name: "Soul Gem", description: "Steal 10% of enemy stats after defeat", price: 1200, effect: "soulSteal", value: 10, color: "#8A2BE2" },
 ];
+
+const specialShopItems = [
+    { name: "Monster Bait", description: "Attract a stronger enemy", price: 50, effect: "bait", value: 3, color: "#DC143C" },
+    { name: "Goo Transmuter", description: "Convert 500 goo to 100 gold", price: 0, effect: "transmute", value: 100, color: "#BDB76B", gooPrice: 500 },
+    { name: "Stat Respec Potion", description: "Redistribute your stat points", price: 300, effect: "respec", value: 0, color: "#9932CC" },
+    { name: "Monster Encyclopedia", description: "Shows enemy weaknesses in battle", price: 400, effect: "encyclopedia", value: 0, color: "#8B008B" },
+    { name: "Lucky Charm", description: "+20% loot chance for 5 battles", price: 250, effect: "luck", value: 5, color: "#FFD700" }
+];
+
 
 // DOM elements
 const playerNameEl = document.getElementById('player-name');
@@ -251,7 +276,79 @@ function drawEnemyMonster() {
         enemyMonsterCtx.fillRect(6, 7, 1, 1);
         enemyMonsterCtx.fillRect(9, 7, 1, 1);
     }
+    if (game.enemy.name === "phoenix") {
+        // Draw phoenix
+        enemyMonsterCtx.fillStyle = "#FF6347"; // Body
+        enemyMonsterCtx.fillRect(3, 4, 10, 6);
+        enemyMonsterCtx.fillStyle = "#FFA500"; // Wings
+        enemyMonsterCtx.fillRect(1, 5, 2, 4);
+        enemyMonsterCtx.fillRect(13, 5, 2, 4);
+        enemyMonsterCtx.fillStyle = "#FFD700"; // Tail
+        enemyMonsterCtx.fillRect(4, 10, 8, 3);
+        
+        // Eyes
+        enemyMonsterCtx.fillStyle = "#000000";
+        enemyMonsterCtx.fillRect(6, 6, 1, 1);
+        enemyMonsterCtx.fillRect(9, 6, 1, 1);
+    } else if (game.enemy.name === "behemoth") {
+        // Draw behemoth
+        enemyMonsterCtx.fillStyle = "#8B4513"; // Body
+        enemyMonsterCtx.fillRect(2, 6, 12, 7);
+        enemyMonsterCtx.fillStyle = "#A52A2A"; // Horns
+        enemyMonsterCtx.fillRect(3, 3, 2, 3);
+        enemyMonsterCtx.fillRect(11, 3, 2, 3);
+        
+        // Eyes
+        enemyMonsterCtx.fillStyle = "#FF0000";
+        enemyMonsterCtx.fillRect(5, 8, 2, 2);
+        enemyMonsterCtx.fillRect(9, 8, 2, 2);
+    } else if (game.enemy.name === "kraken") {
+        // Draw kraken
+        enemyMonsterCtx.fillStyle = "#4682B4"; // Body
+        enemyMonsterCtx.fillRect(4, 4, 8, 8);
+        // Tentacles
+        enemyMonsterCtx.fillRect(2, 10, 2, 3);
+        enemyMonsterCtx.fillRect(6, 10, 2, 3);
+        enemyMonsterCtx.fillRect(10, 10, 2, 3);
+        enemyMonsterCtx.fillRect(14, 10, 2, 3);
+        
+        // Eyes
+        enemyMonsterCtx.fillStyle = "#000000";
+        enemyMonsterCtx.fillRect(6, 6, 1, 1);
+        enemyMonsterCtx.fillRect(9, 6, 1, 1);
+    } else if (game.enemy.name === "lich") {
+        // Draw lich
+        enemyMonsterCtx.fillStyle = "#9370DB"; // Body
+        enemyMonsterCtx.fillRect(4, 6, 8, 7);
+        enemyMonsterCtx.fillStyle = "#483D8B"; // Head
+        enemyMonsterCtx.fillRect(5, 3, 6, 3);
+        // Staff
+        enemyMonsterCtx.fillStyle = "#8B4513";
+        enemyMonsterCtx.fillRect(2, 6, 1, 7);
+        enemyMonsterCtx.fillStyle = "#9932CC";
+        enemyMonsterCtx.fillRect(1, 5, 3, 1);
+        
+        // Eyes
+        enemyMonsterCtx.fillStyle = "#FF0000";
+        enemyMonsterCtx.fillRect(6, 4, 1, 1);
+        enemyMonsterCtx.fillRect(9, 4, 1, 1);
+    } else if (game.enemy.name === "hydra") {
+        // Draw hydra
+        enemyMonsterCtx.fillStyle = "#32CD32"; // Body
+        enemyMonsterCtx.fillRect(3, 8, 10, 5);
+        // Heads
+        enemyMonsterCtx.fillRect(3, 3, 3, 5);
+        enemyMonsterCtx.fillRect(7, 3, 3, 5);
+        enemyMonsterCtx.fillRect(11, 3, 3, 5);
+        
+        // Eyes
+        enemyMonsterCtx.fillStyle = "#000000";
+        enemyMonsterCtx.fillRect(4, 5, 1, 1);
+        enemyMonsterCtx.fillRect(8, 5, 1, 1);
+        enemyMonsterCtx.fillRect(12, 5, 1, 1);
+    }
 }
+
 
 // Update UI elements
 function updateUI() {
@@ -376,14 +473,14 @@ function startBattle() {
         updateUI();
     }, 1000);
     
-    // End battle after 10 seconds max (failsafe)
+    // End battle after 25 seconds max (failsafe)
     setTimeout(() => {
         clearInterval(battleInterval);
         if (game.enemy.currentHp > 0 && game.player.currentHp > 0) {
             addLogEntry("Battle timed out!");
             fightBtn.disabled = false;
         }
-    }, 10000);
+    }, 25000);
 }
 
 // Player attack
@@ -712,6 +809,319 @@ function useItem(index) {
     updateUI();
     hideInventory();
 }
+// Usage for agility item
+function useAgilityItem(item) {
+    game.player.stats.speed += item.value;
+    game.player.stats.dodge += 1;
+    addLogEntry(`Used ${item.name}! Speed +${item.value}, Dodge +1.`);
+}
+
+// Usage for warrior item
+function useWarriorItem(item) {
+    game.player.stats.attack += item.value;
+    game.player.stats.health += 10;
+    game.player.maxHp += 10;
+    game.player.currentHp += 10;
+    addLogEntry(`Used ${item.name}! Attack +${item.value}, Max HP +10.`);
+}
+
+// Usage for random boost item
+function useRandomItem(item) {
+    const stats = ["health", "attack", "speed", "dodge"];
+    const randomStat = stats[Math.floor(Math.random() * stats.length)];
+    const boost = Math.floor(Math.random() * 3) + 2; // Random boost between 2-4
+    
+    switch(randomStat) {
+        case "health":
+            game.player.stats.health += boost;
+            game.player.maxHp += boost;
+            game.player.currentHp += boost;
+            addLogEntry(`Lucky! ${item.name} boosted Health by ${boost}!`);
+            break;
+        case "attack":
+            game.player.stats.attack += boost;
+            addLogEntry(`Lucky! ${item.name} boosted Attack by ${boost}!`);
+            break;
+        case "speed":
+            game.player.stats.speed += boost;
+            addLogEntry(`Lucky! ${item.name} boosted Speed by ${boost}!`);
+            break;
+        case "dodge":
+            game.player.stats.dodge += boost;
+            addLogEntry(`Lucky! ${item.name} boosted Dodge by ${boost}!`);
+            break;
+    }
+}
+
+// Usage for shield item
+function useShieldItem(item) {
+    game.player.stats.dodge += item.value;
+    if (!game.player.damageReduction) game.player.damageReduction = 0;
+    game.player.damageReduction += 0.1; // 10% damage reduction
+    addLogEntry(`Used ${item.name}! Dodge +${item.value}, damage taken reduced by 10%.`);
+}
+
+// Usage for energy drink
+function useEnergyBoostItem(item) {
+    if (!game.player.temporaryEffects) game.player.temporaryEffects = {};
+    game.player.temporaryEffects.speedBoost = {
+        battles: 1,
+        multiplier: 1.5
+    };
+    addLogEntry(`Used ${item.name}! Speed boosted by 50% for the next battle.`);
+}
+
+// Usage for phoenix feather
+function useReviveItem(item) {
+    if (!game.player.specialEffects) game.player.specialEffects = {};
+    game.player.specialEffects.revive = {
+        active: true,
+        healthPercent: item.value
+    };
+    addLogEntry(`Used ${item.name}! You'll be revived once with ${item.value}% HP if defeated.`);
+}
+
+// Usage for crystal of balance
+function useBalanceItem(item) {
+    game.player.stats.health += item.value;
+    game.player.maxHp += item.value;
+    game.player.currentHp += item.value;
+    game.player.stats.attack += item.value;
+    game.player.stats.speed += item.value;
+    game.player.stats.dodge += item.value;
+    addLogEntry(`Used ${item.name}! All stats increased by ${item.value}!`);
+}
+
+// Usage for dragon scale armor
+function useArmorItem(item) {
+    game.player.stats.health += item.value;
+    game.player.maxHp += item.value;
+    game.player.currentHp += item.value;
+    game.player.stats.dodge += 2;
+    addLogEntry(`Used ${item.name}! Max HP +${item.value}, Dodge +2.`);
+}
+
+// Usage for gold boost rune stone
+function useGoldBoostItem(item) {
+    if (!game.player.temporaryEffects) game.player.temporaryEffects = {};
+    game.player.temporaryEffects.goldBoost = {
+        battles: item.value,
+        multiplier: 2
+    };
+    addLogEntry(`Used ${item.name}! Gold rewards doubled for next ${item.value} battles.`);
+}
+
+// Usage for soul gem
+function useSoulStealItem(item) {
+    if (!game.player.specialEffects) game.player.specialEffects = {};
+    game.player.specialEffects.soulSteal = {
+        active: true,
+        percent: item.value
+    };
+    addLogEntry(`Used ${item.name}! You'll steal ${item.value}% of enemies' stats upon defeat.`);
+}
+
+// Functions to handle special shop items
+
+// Use monster bait
+function useMonsterBait(item) {
+    const currentEnemyLevel = game.enemy.level;
+    const newEnemyLevel = currentEnemyLevel + item.value;
+    
+    // Generate a stronger enemy
+    const enemyIndex = Math.min(Math.floor(newEnemyLevel / 10), enemyTypes.length - 1);
+    const enemyType = enemyTypes[enemyIndex];
+    
+    game.enemy = {
+        name: enemyType.name,
+        level: newEnemyLevel,
+        maxHp: Math.floor(enemyType.baseHealth * (1 + 0.1 * newEnemyLevel)),
+        stats: {
+            health: Math.floor(enemyType.baseHealth * (1 + 0.1 * newEnemyLevel)),
+            attack: Math.floor(enemyType.baseAttack * (1 + 0.1 * newEnemyLevel)),
+            speed: Math.floor(enemyType.baseSpeed * (1 + 0.05 * newEnemyLevel)),
+            dodge: Math.floor(enemyType.baseDodge * (1 + 0.05 * newEnemyLevel))
+        }
+    };
+    
+    game.enemy.currentHp = game.enemy.maxHp;
+    
+    // Higher chance for good loot from baited monsters
+    game.enemy.lootChanceBonus = 0.2;
+    
+    addLogEntry(`Used ${item.name}! Attracted a level ${newEnemyLevel} ${game.enemy.name}!`);
+    drawEnemyMonster();
+    updateUI();
+}
+
+// Use goo transmuter
+function useGooTransmuter(item) {
+    if (game.resources.goo >= item.gooPrice) {
+        game.resources.goo -= item.gooPrice;
+        game.resources.gold += item.value;
+        addLogEntry(`Transmuted ${item.gooPrice} goo into ${item.value} gold!`);
+        updateUI();
+    } else {
+        addLogEntry(`Not enough goo! Need ${item.gooPrice} goo to transmute.`);
+    }
+}
+
+// Use stat respec potion
+function useRespecPotion() {
+    // Store original total of stats
+    const totalHealth = game.player.stats.health;
+    const totalAttack = game.player.stats.attack;
+    const totalSpeed = game.player.stats.speed;
+    const totalDodge = game.player.stats.dodge;
+    
+    // Reset to base stats
+    game.player.stats.health = 100;
+    game.player.stats.attack = 5;
+    game.player.stats.speed = 10;
+    game.player.stats.dodge = 5;
+    
+    // Calculate stat points to redistribute
+    const healthPoints = totalHealth - 100;
+    const attackPoints = totalAttack - 5;
+    const speedPoints = totalSpeed - 10;
+    const dodgePoints = totalDodge - 5;
+    const totalPoints = healthPoints + attackPoints + speedPoints + dodgePoints;
+    
+    // Store available points temporarily
+    game.player.availableStatPoints = totalPoints;
+    
+    // Update max HP and current HP
+    game.player.maxHp = game.player.stats.health;
+    game.player.currentHp = game.player.maxHp;
+    
+    addLogEntry(`Stat points reset! You have ${totalPoints} points to redistribute.`);
+    
+    // Show a custom stat allocation screen (would need to be implemented)
+    showStatAllocationScreen();
+}
+
+function showStatAllocationScreen() {
+    // Create a new screen or reuse another screen
+    const statScreen = document.createElement('div');
+    statScreen.id = 'stat-allocation-screen';
+    statScreen.className = 'screen';
+    statScreen.style.display = 'block';
+    
+    statScreen.innerHTML = `
+        <h2>Allocate Stat Points</h2>
+        <p>Available Points: <span id="available-points">${game.player.availableStatPoints}</span></p>
+        
+        <div class="stat-container">
+            <h3>Health: <span id="health-value">${game.player.stats.health}</span></h3>
+            <button id="health-plus">+</button>
+            <button id="health-minus">-</button>
+        </div>
+        
+        <div class="stat-container">
+            <h3>Attack: <span id="attack-value">${game.player.stats.attack}</span></h3>
+            <button id="attack-plus">+</button>
+            <button id="attack-minus">-</button>
+        </div>
+        
+        <div class="stat-container">
+            <h3>Speed: <span id="speed-value">${game.player.stats.speed}</span></h3>
+            <button id="speed-plus">+</button>
+            <button id="speed-minus">-</button>
+        </div>
+        
+        <div class="stat-container">
+            <h3>Dodge: <span id="dodge-value">${game.player.stats.dodge}</span></h3>
+            <button id="dodge-plus">+</button>
+            <button id="dodge-minus">-</button>
+        </div>
+        
+        <button id="confirm-stats">Confirm Stats</button>
+    `;
+    document.body.appendChild(statScreen);
+
+        // Add event listeners for the buttons
+        document.getElementById('health-plus').addEventListener('click', () => adjustStat('health', 1));
+        document.getElementById('health-minus').addEventListener('click', () => adjustStat('health', -1));
+        document.getElementById('attack-plus').addEventListener('click', () => adjustStat('attack', 1));
+        document.getElementById('attack-minus').addEventListener('click', () => adjustStat('attack', -1));
+        document.getElementById('speed-plus').addEventListener('click', () => adjustStat('speed', 1));
+        document.getElementById('speed-minus').addEventListener('click', () => adjustStat('speed', -1));
+        document.getElementById('dodge-plus').addEventListener('click', () => adjustStat('dodge', 1));
+        document.getElementById('dodge-minus').addEventListener('click', () => adjustStat('dodge', -1));
+        
+        document.getElementById('confirm-stats').addEventListener('click', confirmStatAllocation);
+    }
+
+    // Function to adjust stats during respec
+function adjustStat(stat, amount) {
+    if (amount > 0 && game.player.availableStatPoints <= 0) {
+        return; // No more points to allocate
+    }
+    
+    // For decreasing, check that the stat isn't at its minimum
+    if (amount < 0) {
+        const minValues = {
+            health: 100,
+            attack: 5,
+            speed: 10,
+            dodge: 5
+        };
+        
+        if (game.player.stats[stat] <= minValues[stat]) {
+            return; // Cannot decrease below minimum
+        }
+    }
+    
+    // Apply the adjustment
+    game.player.stats[stat] += amount;
+    game.player.availableStatPoints -= amount;
+    
+    // Update the UI
+    document.getElementById(`${stat}-value`).textContent = game.player.stats[stat];
+    document.getElementById('available-points').textContent = game.player.availableStatPoints;
+}
+
+// Function to confirm stat allocation
+function confirmStatAllocation() {
+    // Update max HP and current HP based on new health stat
+    game.player.maxHp = game.player.stats.health;
+    game.player.currentHp = game.player.maxHp;
+    
+    // Remove the stat allocation screen
+    const statScreen = document.getElementById('stat-allocation-screen');
+    if (statScreen) {
+        document.body.removeChild(statScreen);
+    }
+    
+    // Remove the temporary property
+    delete game.player.availableStatPoints;
+    
+    addLogEntry("Stat reallocation complete!");
+    updateUI();
+    
+    // Save the game after respec
+    saveGame();
+}
+
+// Use monster encyclopedia
+function useEncyclopedia() {
+    // Enable a game flag that shows enemy vulnerabilities and resistances in battle
+    game.player.hasEncyclopedia = true;
+    
+    addLogEntry(`Activated Monster Encyclopedia! Enemy info will now be shown in battle.`);
+}
+
+// Use lucky charm
+function useLuckyCharm(item) {
+    if (!game.player.temporaryEffects) game.player.temporaryEffects = {};
+    
+    game.player.temporaryEffects.luck = {
+        battles: item.value,
+        bonusChance: 0.2 // 20% bonus to loot chance
+    };
+    
+    addLogEntry(`Used ${item.name}! Loot chance increased by 20% for ${item.value} battles.`);
+}
 
 // Show shop
 function showShop() {
@@ -792,9 +1202,9 @@ function showLevelUpScreen() {
 // Show loot screen
 function showLoot() {
     // Generate random item (normal enemies get normal items, bosses get boss items)
-    const itemTypes = game.enemy.isBoss ? bossItemTypes : itemTypes;
-    const randomIndex = Math.floor(Math.random() * itemTypes.length);
-    const item = itemTypes[randomIndex];
+    const selectedItems = game.enemy.isBoss ? bossItemTypes : itemTypes;
+    const randomIndex = Math.floor(Math.random() * selectedItems.length);
+    const item = selectedItems[randomIndex];
     
     // Add to inventory
     game.inventory.push({ ...item });
